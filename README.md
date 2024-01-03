@@ -1,16 +1,24 @@
 # pyserver_test
 
-A new Flutter project.
+using ```http: ^1.1.0```
 
-## Getting Started
+server is from python flask, this is for receiving json and image data from python backend server.
 
-This project is a starting point for a Flutter application.
+```dart
+//decoder of image data
+Image imageFromByte64(String byte64String){
+  Uint8List byteImage = const Base64Decoder().convert(byte64String);
 
-A few resources to get you started if this is your first Flutter project:
+  return Image.memory(byteImage);
+}
 
-- [Lab: Write your first Flutter app](https://docs.flutter.dev/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://docs.flutter.dev/cookbook)
+//getting json data from server
+void receiveImageData() async {
+  var response = await get(Uri.parse('http://127.0.0.1:5000/img'));
+  var jsonData = jsonDecode(response.body);
 
-For help getting started with Flutter development, view the
-[online documentation](https://docs.flutter.dev/), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
+  setstate((){
+    showImage = imageFromByte64(jsonData['img']);
+  });
+}
+```
