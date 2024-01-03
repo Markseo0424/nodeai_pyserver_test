@@ -5,7 +5,7 @@ using ```http: ^1.1.0```
 server is from python flask, this is for receiving json and image data from python backend server.
 
 ```dart
-//decoder of image data
+//decoder of image data (byte64 to image)
 Image imageFromByte64(String byte64String){
   Uint8List byteImage = const Base64Decoder().convert(byte64String);
 
